@@ -1,49 +1,90 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title>بيانات المتدرب</title>
     <style>
         body {
             font-family: sans-serif;
-            direction: rtl;
+            background-color: #f5f5f5;
+            padding: 30px;
+            text-align: right;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
             padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .course {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 10px;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
-    <h2>بيانات المتدرب</h2>
-    <div id="data">جارٍ التحميل...</div>
+
+    <div class="container">
+        <h2>بيانات المتدرب</h2>
+        <div id="output">جارٍ التحميل...</div>
+    </div>
 
     <script>
         const params = new URLSearchParams(window.location.search);
         const id = params.get("id");
 
         if (!id) {
-            document.getElementById("data").innerText = "لم يتم توفير ID في الرابط.";
+            document.getElementById("output").innerHTML = "<p class='error'>لم يتم توفير رقم ID.</p>";
         } else {
-            fetch(`https://script.google.com/macros/s/AKfycbzAYAeJPsjzMLTO3EBUpCOFt38FVzEE9ZWxn-xPDne8tCGJWES2JyUcGKmyhZNSfevX/exec?id=${id}`)
+            fetch(`https://script.google.com/macros/s/AKfycbzIY0YOT6WIJH5qezCq1QeJrJ6bH6MwUr9zTARPBAvoeWDpZfNJelxmhAeFnjfjBEFl/exec?id=${id}`) // ← غيّر XXX لرابط الـ Web App بتاعك
                 .then(res => res.json())
                 .then(data => {
+                    const output = document.getElementById("output");
+
                     if (data.error) {
-                        document.getElementById("data").innerText = data.error;
+                        output.innerHTML = `<p class='error'>${data.error}</p>`;
                     } else {
-                        let html = "<ul>";
-                        for (let key in data) {
-                            html += `<li><strong>${key}:</strong> ${data[key]}</li>`;
-                        }
-                        html += "</ul>";
-                        document.getElementById("data").innerHTML = html;
+                        const name = data[0]["Full Name"]; // بافتراض كل الصفوف لنفس الشخص
+                        let html = `<p><strong>الاسم:</strong> ${name}</p>`;
+                        html += `<p><strong>رقم الهوية:</strong> ${id}</p>`;
+                        html += "<h3>الدورات:</h3>";
+
+                        data.forEach(course => {
+                            html += `
+                <div class="course">
+                  <p><strong>الدورة:</strong> ${course["Course"]}</p>
+                  <p><strong>تاريخ الانتهاء:</strong> ${course["End Date"]}</p>
+                </div>
+              `;
+                        });
+
+                        output.innerHTML = html;
                     }
                 })
-                .catch(err => {
-                    document.getElementById("data").innerText = "حصل خطأ في تحميل البيانات.";
-                    console.error(err);
+                .catch(error => {
+                    document.getElementById("output").innerHTML = "<p class='error'>حدث خطأ أثناء جلب البيانات.</p>";
+                    console.error(error);
                 });
         }
     </script>
+
 </body>
 
 </html>
