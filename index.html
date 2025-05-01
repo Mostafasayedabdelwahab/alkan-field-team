@@ -53,7 +53,7 @@
         if (!id) {
             document.getElementById("output").innerHTML = "<p class='error'>لم يتم توفير رقم ID.</p>";
         } else {
-            fetch(`https://script.google.com/macros/s/AKfycbzIY0YOT6WIJH5qezCq1QeJrJ6bH6MwUr9zTARPBAvoeWDpZfNJelxmhAeFnjfjBEFl/exec?id=${id}`) // ← غيّر XXX لرابط الـ Web App بتاعك
+            fetch(`https://script.google.com/macros/s/AKfycbyABEamKZ5rtvIapB0pDw1osexCeBfaclBo75sti5R5YIOyLY_-Gg4mefzUb8rtGeGMxg/exec?id=${id}`) // ← غيّر XXX لرابط الـ Web App بتاعك
                 .then(res => res.json())
                 .then(data => {
                     const output = document.getElementById("output");
