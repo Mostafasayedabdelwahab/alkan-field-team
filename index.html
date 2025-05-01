@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>بيانات المتدرب</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            direction: rtl;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>بيانات المتدرب</h2>
+    <div id="data">جارٍ التحميل...</div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+
+        if (!id) {
+            document.getElementById("data").innerText = "لم يتم توفير ID في الرابط.";
+        } else {
+            fetch(`https://script.google.com/macros/s/AKfycbzAYAeJPsjzMLTO3EBUpCOFt38FVzEE9ZWxn-xPDne8tCGJWES2JyUcGKmyhZNSfevX/exec?id=${id}`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById("data").innerText = data.error;
+                    } else {
+                        let html = "<ul>";
+                        for (let key in data) {
+                            html += `<li><strong>${key}:</strong> ${data[key]}</li>`;
+                        }
+                        html += "</ul>";
+                        document.getElementById("data").innerHTML = html;
+                    }
+                })
+                .catch(err => {
+                    document.getElementById("data").innerText = "حصل خطأ في تحميل البيانات.";
+                    console.error(err);
+                });
+        }
+    </script>
+</body>
+
+</html>
