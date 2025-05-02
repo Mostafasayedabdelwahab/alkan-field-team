@@ -1,86 +1,225 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>بيانات المتدرب</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f7f7f7;
-            padding: 20px;
-            direction: rtl;
-            text-align: right;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            max-width: 500px;
-            margin: auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        p {
-            margin: 10px 0;
-        }
-
-        span {
-            font-weight: bold;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alkan-Vehicle Daily Checklist</title>
+    <link rel="shortcut icon" href="https://alkancit.com//storage/companies/November2023/Z70W26UyPYgYExuSE8E6.png"
+        type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Roboto:wght@100;300;500&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="card">
-        <h2>بيانات المتدرب</h2>
-        <p><span>الاسم:</span> <span id="name"></span></p>
-        <p><span>الوظيفة:</span> <span id="title"></span></p>
-        <p><span>الشركة:</span> <span id="contractor"></span></p>
-        <p><span>رقم الموبايل:</span> <span id="mobile"></span></p>
-        <hr />
-        <h3>تواريخ انتهاء الدورات:</h3>
-        <p><span>RA:</span> <span id="ra_expiry"></span></p>
-        <p><span>FA:</span> <span id="fa_expiry"></span></p>
-        <p><span>FF:</span> <span id="ff_expiry"></span></p>
-        <p><span>EC:</span> <span id="ec_expiry"></span></p>
+
+    <div class=" containerForm d-flex align-items-center flex-column ">
+        <img src="https://alkancit.com//storage/companies/November2023/Z70W26UyPYgYExuSE8E6.png" alt="شعار الكان"
+            class="logo">
+        <div class="cardForm my-5" id="Card-form" style="display: block;">
+            <h4 class="title">Enter your password to view the data</h4>
+            <form id="login-form">
+                <div class="field">
+                    <svg class="input-icon" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M80 192V144C80 64.47 144.5 0 224 0C303.5 0 368 64.47 368 144V192H384C419.3 192 448 220.7 448 256V448C448 483.3 419.3 512 384 512H64C28.65 512 0 483.3 0 448V256C0 220.7 28.65 192 64 192H80zM144 192H304V144C304 99.82 268.2 64 224 64C179.8 64 144 99.82 144 144V192z">
+                        </path>
+                    </svg>
+                    <input autocomplete="off" id="logpass" placeholder="Password" class="input-field" name="logpass"
+                        type="password">
+                </div>
+                <button class="btn" type="submit">Display data</button>
+                <p id="error"></p>
+            </form>
+        </div>
+
+        <div id="loading" class="text-center my-3 d-none p-2">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading data...</p>
+        </div>
+
+        <div id="cardData" class="d-none row">
+            <div class="col-12 mx-auto d-flex justify-content-center">
+                <h3 id="name"></h3>
+            </div>
+            <h4 class="titleOfFileds"> Main data : </h4>
+            <p class="col-12 col-md-6 col-lg-4"><span class="nameOfFiled">National ID:</span> <span id="National_ID"></span></p>
+            <p class="col-12 col-md-6 col-lg-4"><span class="nameOfFiled">Status:</span> <span id="Status"></span></p>
+            <p class="col-12 col-md-6 col-lg-4"><span class="nameOfFiled">Title:</span> <span id="title"></span></p>
+            <p class="col-12 col-md-6 col-lg-3 "><span class="nameOfFiled">Contractor:</span> <span id="contractor"></span></p>
+            <p class="col-12 col-md-6 col-lg-3 "><span class="nameOfFiled">Subcontractor:</span> <span id="Subcontractor"></span>
+            </p>
+            <p class="col-12 col-md-6 col-lg-3"><span class="nameOfFiled">Legal Permission Approval :</span> <span
+                    id="Legal_Permission_Approval"></span></p>
+            <p class="col-12 col-md-6 col-lg-3"><span class="nameOfFiled">Mobile:</span> <span id="mobile"></span></p>
+            <p class="col-12 col-md-6 d-none d-md-block d-lg-none"></p>
+            <h4 class="titleOfFileds">dates:</h4>
+            <p class="col-12 col-md-6 col-lg-4"><span class="nameOfFiled">Hired date:</span> <span id="Hired_date"> Non</span></p>
+            <p class="col-12 col-md-6 col-lg-4"><span class="nameOfFiled">Resigned Date:</span> <span id="Resigned_Date"></span>
+            </p>
+            <p class="col-12 col-md-6 col-lg-4"><span class="nameOfFiled">RDT Date 100 % :</span> <span id="RDT_Date"></span></p>
+            <p class="col-12 col-md-6 d-none d-md-block d-lg-none"></p>
+            <h4 class="titleOfFileds">Course end dates:</h4>
+            <p class="col-12 col-md-6 col-lg-4"><span class="nameOfFiled">WAH Expiry (Practical) :</span> <span
+                    id="WAH_Expiry_Date_Practical"></span></p>
+            <p class="col-12 col-md-6 col-lg-4"><span class="nameOfFiled">WAH Expiry (Theoretical):</span> <span
+                    id="WAH_Expiry_Date_Theoretical"></span></p>
+            <p class="col-12 col-md-6 col-lg-4"><span class="nameOfFiled">RA Expiry Date :</span> <span id="ra_expiry"></span>
+            </p>
+            <p class="col-12 col-md-6 col-lg-3"><span class="nameOfFiled">FA Expiry Date :</span> <span id="fa_expiry"></span>
+            </p>
+            <p class="col-12 col-md-6 col-lg-3"><span class="nameOfFiled">FF Expiry Date :</span> <span id="ff_expiry"></span>
+            </p>
+            <p class="col-12 col-md-6 col-lg-3"><span class="nameOfFiled">EC Expiry Date :</span> <span id="ec_expiry"></span>
+            </p>
+            <p class="col-12 col-md-6 col-lg-3"><span class="nameOfFiled">MCU Expiry Date :</span> <span id="MCU_expiry"></span>
+            </p>
+            <p class="col-12 col-md-6 d-none d-md-block d-lg-none"></p>
+
+        </div>
     </div>
 
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.min.js"
+        integrity="sha384-VQqxDN0EQCkWoxt/0vsQvZswzTHUVOImccYmSyhJTp7kGtPed0Qcx8rK9h9YEgx+"
+        crossorigin="anonymous"></script>
+
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get("id");
+        const loginForm = document.getElementById("login-form");
 
-                   fetch(`https://script.google.com/macros/s/AKfycbyABEamKZ5rtvIapB0pDw1osexCeBfaclBo75sti5R5YIOyLY_-Gg4mefzUb8rtGeGMxg/exec?id=${id}`) // ← غيّر XXX لرابط الـ Web App بتاعك
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.length > 0) {
-                    const user = data[0];
+        loginForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const email = "user@myapp.com";
+            const password = document.getElementById("logpass").value;
 
-                    document.getElementById("name").textContent = user["National ID"];
-                    document.getElementById("title").textContent = user["Title"];
-                    document.getElementById("contractor").textContent = user["Contractor "]; // لاحظ المسافة
-                    document.getElementById("mobile").textContent = user["Mobile No"];
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    document.getElementById("Card-form").style.display = "none";
+                    document.getElementById("loading").classList.remove("d-none");
+                    const params = new URLSearchParams(window.location.search);
+                    const id = params.get("id");
+                    fetch(`https://script.google.com/macros/s/AKfycbyABEamKZ5rtvIapB0pDw1osexCeBfaclBo75sti5R5YIOyLY_-Gg4mefzUb8rtGeGMxg/exec?id=${id}`) // ← غيّر XXX لرابط الـ Web App بتاعك
+                        .then((res) => res.json())
+                        .then((data) => {
+                            document.getElementById("loading").classList.add("d-none");
+                            if (data.length > 0) {
+                                document.getElementById("cardData").classList.remove("d-none");
+                                document.getElementById("cardData").classList.add("d-flex");
 
-                    document.getElementById("ra_expiry").textContent = (user["RA Expiry Date"] || "").split("T")[0];
-                    document.getElementById("fa_expiry").textContent = (user["FA Expiry Date"] || "").split("T")[0];
-                    document.getElementById("ff_expiry").textContent = (user["FF Expiry Date"] || "").split("T")[0];
-                    document.getElementById("ec_expiry").textContent = (user["EC Expiry Date"] || "").split("T")[0];
+                                const user = data[0]; // ← نستخدم ده
 
-                } else {
-                    document.querySelector(".card").innerHTML = "لم يتم العثور على بيانات لهذه الهوية.";
-                }
-            })
-            .catch((err) => {
-                console.error(err);
-                document.querySelector(".card").innerHTML = "حدث خطأ أثناء تحميل البيانات.";
-            });
+                                function formatDate(dateStr) {
+                                    if (!dateStr) return "";
+                                    const date = new Date(dateStr);
+                                    if (isNaN(date.getTime())) return ""; // ← تجنب الخطأ هنا
+                                    date.setDate(date.getDate() + 1); // نضيف يوم
+                                    return date.toISOString().split("T")[0];
+                                }
+
+                                function setExpiryBadge(elementId, dateStr) {
+                                    const date = new Date(dateStr);
+                                    if (isNaN(date.getTime())) {
+                                        document.getElementById(elementId).innerHTML = `<span class="">None</span>`;
+                                        return;
+                                    }
+
+                                    date.setDate(date.getDate() + 1);
+                                    const today = new Date();
+                                    today.setHours(0, 0, 0, 0);
+
+                                    const formatted = date.toISOString().split("T")[0];
+                                    const isExpired = date < today;
+
+                                    const badgeClass = isExpired ? "bg-danger" : "bg-success";
+                                    const badgeText = isExpired ? `Expired: ${formatted}` : `Valid: ${formatted}`;
+
+                                    document.getElementById(elementId).innerHTML = `<span class="badge ${badgeClass}">${badgeText}</span>`;
+                                }
+
+                                document.getElementById("National_ID").innerText = user["National ID"] || "None";
+                                document.getElementById("name").innerText = user["Name"] || "None";
+                                document.getElementById("Status").innerText = user["Status "]?.trim() || "None";
+                                document.getElementById("title").innerText = user["Title"] || "None";
+                                document.getElementById("contractor").innerText = user["Contractor "]?.trim() || "None";
+                                document.getElementById("Subcontractor").innerText = user["Subcontractor"] || "None";
+                                document.getElementById("Legal_Permission_Approval").innerText = user["Legal Permission Approval"]?.trim() || "None";
+                                document.getElementById("mobile").innerText = user["Mobile No"] || "None";
+
+                                document.getElementById("RDT_Date").innerText = formatDate(user["RDT Date 100 %"])  || "None";
+                                document.getElementById("Hired_date").innerText = formatDate(user["Hired Date"])  || "None";
+                                document.getElementById("Resigned_Date").innerText = formatDate(user["Resigned Date"])  || "None";
+
+                                setExpiryBadge("ra_expiry", user["RA Expiry Date"]);
+                                setExpiryBadge("fa_expiry", user["FA Expiry Date"]);
+                                
+                                setExpiryBadge("ff_expiry", user["FF Expiry Date"]);
+                                setExpiryBadge("ec_expiry", user["EC Expiry Date"]);
+                                setExpiryBadge("MCU_expiry", user["MCU Expiry Date"]);
+                                setExpiryBadge("WAH_Expiry_Date_Practical", user["WAH Expiry Date (Practical)"]);
+                                setExpiryBadge("WAH_Expiry_Date_Theoretical", user["WAH Expiry Date (Theoretical)"]);
+
+                            } else {
+                                document.getElementById("cardData").classList.remove("d-none");
+                                document.getElementById("cardData").classList.add("d-flex");
+                                document.getElementById("cardData").innerHTML = `<span class="me-2 p-2">No data found .</span>`;
+                            }
+                        })
+
+                        .catch((err) => {
+                            console.error(err);
+                            document.getElementById("loading").classList.add("d-none");
+                            document.getElementById("cardData").innerHTML = `<span class="me-2 p-2">An error occurred while loading data.</span>`;
+                        });
+                })
+                .catch((error) => {
+                    let message = "Incorrect password";
+                    document.getElementById("error").innerText = message;
+                    setTimeout(() => {
+                        document.getElementById("error").innerText = "";
+                    }, 1000);
+                });
+        });
     </script>
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBrc1tIoGS9AaM5VnrGdnLWG1Pkp_UPtN0",
+            authDomain: "alkancourses.firebaseapp.com",
+            projectId: "alkancourses",
+            storageBucket: "alkancourses.firebasestorage.app",
+            messagingSenderId: "663887812425",
+            appId: "1:663887812425:web:5515859378980b20166c98",
+            measurementId: "G-X475CB7CXE"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+    </script>
+
 </body>
 
 </html>
