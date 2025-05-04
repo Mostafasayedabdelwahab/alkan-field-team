@@ -119,8 +119,9 @@
                     document.getElementById("loading").classList.remove("d-none");
                     const params = new URLSearchParams(window.location.search);
                     const id = params.get("id");
-                    fetch(`https://script.google.com/macros/s/AKfycbyABEamKZ5rtvIapB0pDw1osexCeBfaclBo75sti5R5YIOyLY_-Gg4mefzUb8rtGeGMxg/exec?id=${id}`) // ← غيّر XXX لرابط الـ Web App بتاعك
-                        .then((res) => res.json())
+                    const type = params.get("type");
+                    fetch(`https://script.google.com/macros/s/AKfycbzwq-K_9nA0S7rlmjTED5FncHiQLPR2Mxv88XKYs8yv10eAmZGxOKe70L5_Ao4iovCtAA/exec?id=${id}&type=${type}`)
+                    .then((res) => res.json())
                         .then((data) => {
                             document.getElementById("loading").classList.add("d-none");
                             if (data.length > 0) {
