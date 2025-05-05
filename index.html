@@ -123,7 +123,8 @@
                     const params = new URLSearchParams(window.location.search);
                     const id = params.get("id");
                     const type = params.get("type");
-                    fetch(`https://script.google.com/macros/s/AKfycbzwq-K_9nA0S7rlmjTED5FncHiQLPR2Mxv88XKYs8yv10eAmZGxOKe70L5_Ao4iovCtAA/exec?id=${id}&type=${type}`)
+                                        fetch(`https://script.google.com/macros/s/AKfycbxAT5gzS63uJfUokSuY3xpW6wPCJT5KIjIowe2UYblGHGiY2S5WnnVi4FDMSuOxVJZRQA/exec?id=${id}&type=${type}`)
+
                     .then((res) => res.json())
                         .then((data) => {
                             document.getElementById("loading").classList.add("d-none");
